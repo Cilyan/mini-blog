@@ -1,0 +1,32 @@
+lang = "fr-fr"
+title = "Your Website Title"
+description = "Your Metadata Description"
+brand = "Your brand"
+posts_per_page = 8
+
+[home]
+url = "index.html"
+title = "Your Index Page Title"
+description = "Your Index Page Description"
+bgimg = "img/example.jpg"
+
+[paths]
+content = "content"
+output = "output"
+template = "../template"
+
+[photos]
+metadata = "static/photos/matcherdata.json"
+max_img_size = [2500, 2500]
+max_thumb_size = [400, 300]
+max_file_size = '1024kb'
+highres = false
+path = "photos"
+download = false
+originals = '/path/to/original/photos'
+cache = "/path/to/original/photos/imghashes.json"
+force_recreate_cache = false
+
+[extract]
+database = 'sqlalchemy url'
+site_id = 123

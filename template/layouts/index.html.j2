@@ -1,0 +1,47 @@
+{% extends "base.html.j2" %}
+
+{% block title %}{{ site.title }}{% endblock title %}
+
+{% block description %}{{site.description}}{% endblock description %}
+
+{% block main %}
+    <main class="card-container side-gutter">
+
+      <header class="list-header">
+        <h1 class="list-header-title">{{site.home.title}}</h1>
+        <p class="list-header-subtext">{{site.home.description}}</p>
+      </header>
+      
+      {% for post in posts -%}
+      <a href="{{ url_for(post.url) }}" ontouchstart="cardPressed.call(this)" ontouchend="cardReleased.call(this)" ontouchmove="cardReleased.call(this)" class="card blog-card" rel="bookmark">
+  
+        <div class="card-img-container">
+          <picture>
+            <source srcset="{{ url_for_assets(post.resources.featuredImage.src) }}">
+            <img src="{{ url_for_assets(post.resources.featuredImage.src) }}" class="card-img" alt="{{ post.resources.featuredImage.description }}">
+          </picture>
+        </div>
+
+        <article class="card-body">
+          <h2 class="card-title">{{ post.title }}</h2>
+          <p class="card-text">{{ post.description }}</p>
+          <div class="card-subtext muted-text">
+            <p>Posté le <time datetime="{{ post.date.strftime('%Y-%m-%d') }}">{{ post.date.strftime('%d %b %Y') }}</time></p>
+          </div>
+        </article>
+
+      </a>
+      {%- endfor %}
+
+    </main>
+{% endblock main %}
+
+
+{% block page_nav %}
+    {% if paginator.prev or paginator.next -%}
+    <nav class="pagination-nav side-padding">
+      {% if paginator.next %}<a href="{{ url_for(paginator.next.url) }}" class="pagination-newer pagination-text">&lt; Articles suivants</a>{% endif %}
+      {% if paginator.prev %}<a href="{{ url_for(paginator.prev.url) }}" class="pagination-older pagination-text">Articles précédents &gt;</a>{% endif %}
+    </nav>
+    {%- endif %}
+{% endblock page_nav %}

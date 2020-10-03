@@ -1,0 +1,52 @@
+{% extends "base.html.j2" %}
+
+{% block title %}{{ post.title }} &middot; {{ site.title }}{% endblock title %}
+
+{% block description %}{{ post.description }}{% endblock description %}
+
+{% block main %}
+    <main class="content side-text-padding">
+      <article class="post dropcase">
+        <header class="post-header">
+          <h1 class="post-title">{{ post.title }}</h1>
+          <p class="post-date">Posté le <time datetime="{{ post.date.strftime('%Y-%m-%d') }}">{{ post.date.strftime('%d %b %Y') }}</time></p>
+        </header>
+        
+        {{ post.content }}
+
+      </article>
+      
+    </main>
+{% endblock main %}
+
+{% block page_nav %}
+    <nav class="end-nav side-padding">
+      
+      {% if prev -%}
+      <a href="{{ url_for(prev.url) }}" ontouchstart="cardPressed.call(this)" ontouchend="cardReleased.call(this)" ontouchmove="cardReleased.call(this)" class="card blog-card" rel="bookmark" >
+
+        <div class="card-img-container">
+          <p class="card-img-overlay">Article Précédent</p>
+          <picture>
+            <source srcset="{{ url_for_assets(prev.resources.featuredImage.src) }}">
+            <img src="{{ url_for_assets(prev.resources.featuredImage.src) }}" class="card-img" alt="{{ prev.resources.featuredImage.description }}">
+          </picture>
+        </div>
+
+        <article class="card-body">
+          <h2 class="card-title">{{ prev.title }}</h2>
+          <p class="card-text">{{ prev.description }}</p>
+          <div class="card-subtext muted-text">
+            <p>Posté le <time datetime="{{ prev.date.strftime('%Y-%m-%d') }}">{{ prev.date.strftime('%d %b %Y') }}</time></p>
+          </div>
+        </article>
+      
+      </a>
+      {%- endif %}
+      
+      <a href="{{ url_for(site.home.url) }}" style="background-image: url({{ url_for_assets(site.home.bgimg) }})" ontouchstart="cardPressed.call(this)" ontouchend="cardReleased.call(this)" ontouchmove="cardReleased.call(this)" class="card home-card" rel="bookmark" >
+        Accueil
+      </a>
+
+    </nav>
+{% endblock page_nav %}
